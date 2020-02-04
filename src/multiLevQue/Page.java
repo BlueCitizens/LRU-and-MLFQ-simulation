@@ -1,8 +1,5 @@
 package multiLevQue;
 
-
-import java.util.TreeMap;
-
 public class Page {
     private int num;
     private String content;

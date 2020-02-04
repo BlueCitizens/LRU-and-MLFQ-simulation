@@ -1,8 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0b7bec45-c133-4b50-8613-503a501f9265" name="Default Changelist" comment="" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="0b7bec45-c133-4b50-8613-503a501f9265" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/OS_jar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/META-INF/OS.kotlin_module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/com/intellij/uiDesigner/core/AbstractLayout.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/com/intellij/uiDesigner/core/DimensionInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/com/intellij/uiDesigner/core/GridConstraints.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/com/intellij/uiDesigner/core/GridLayoutManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/com/intellij/uiDesigner/core/HorizontalInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/com/intellij/uiDesigner/core/LayoutState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/com/intellij/uiDesigner/core/Spacer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/com/intellij/uiDesigner/core/SupportCode$TextWithMnemonic.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/com/intellij/uiDesigner/core/SupportCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/com/intellij/uiDesigner/core/Util.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/com/intellij/uiDesigner/core/VerticalInfo.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/DrawLinePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/DrawLinePanel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/LRU.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$10.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$7.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$8.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$9.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MyThread.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/PCB.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/PCB.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/PCBsQueue.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/PCBsQueue.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/Page.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/Page.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/multiLevQue/LRU.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/multiLevQue/MFQSimulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multiLevQue/MFQSimulation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/multiLevQue/MyThread.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/multiLevQue/PCB.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multiLevQue/PCB.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/multiLevQue/PCBsQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multiLevQue/PCBsQueue.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/multiLevQue/Page.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multiLevQue/Page.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,8 +67,18 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1TjCX15JFYspsq1YEsO3IJaY7aH" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../lab" />
@@ -40,24 +88,17 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\IdeaProjects\OS\src\main" />
       <recent name="D:\IdeaProjects\OS\src" />
     </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Application.MFQSimulation">
     <configuration name="MFQSimulation (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -121,6 +162,18 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -141,11 +194,101 @@
       <workItem from="1574759477903" duration="204000" />
       <workItem from="1574919709924" duration="1010000" />
       <workItem from="1574921189369" duration="595000" />
-      <workItem from="1574922118549" duration="6875000" />
+      <workItem from="1574922118549" duration="6877000" />
+      <workItem from="1574987787218" duration="22000" />
+      <workItem from="1575006897347" duration="87000" />
+      <workItem from="1575174627552" duration="647000" />
+      <workItem from="1575268035146" duration="5947000" />
+      <workItem from="1575277965988" duration="12661000" />
+      <workItem from="1575938803174" duration="152000" />
+      <workItem from="1577024782741" duration="194000" />
+      <workItem from="1577496476069" duration="6739000" />
+      <workItem from="1578046100846" duration="26000" />
+      <workItem from="1578128887287" duration="633000" />
+      <workItem from="1580808843592" duration="1140000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="371" y="122" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1575339514794">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="371" y="122" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1280.680@0.0.1280.680" timestamp="1575339514794" />
+    <state x="371" y="88" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1580809422317">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="371" y="88" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1280.680@0.0.1280.680" timestamp="1580809422317" />
+    <state x="385" y="204" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1" timestamp="1577503737969">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="385" y="204" key="ANALYSIS_DLG_com.intellij.analysis.BaseAnalysisAction$1/0.0.1280.680@0.0.1280.680" timestamp="1577503737969" />
+    <state x="412" y="97" key="FileChooserDialogImpl" timestamp="1577504186815">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="412" y="97" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1577504186815" />
+    <state width="1237" height="102" key="GridCell.Tab.0.bottom" timestamp="1580809984185">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="102" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1580809984185" />
+    <state width="1237" height="102" key="GridCell.Tab.0.center" timestamp="1580809984185">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="102" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1580809984185" />
+    <state width="1237" height="102" key="GridCell.Tab.0.left" timestamp="1580809984185">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="102" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1580809984185" />
+    <state width="1237" height="102" key="GridCell.Tab.0.right" timestamp="1580809984185">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="102" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1580809984185" />
+    <state width="1237" height="204" key="GridCell.Tab.1.bottom" timestamp="1575341370058">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="204" key="GridCell.Tab.1.bottom/0.0.1280.680@0.0.1280.680" timestamp="1575341370058" />
+    <state width="1237" height="204" key="GridCell.Tab.1.center" timestamp="1575341370057">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="204" key="GridCell.Tab.1.center/0.0.1280.680@0.0.1280.680" timestamp="1575341370057" />
+    <state width="1237" height="204" key="GridCell.Tab.1.left" timestamp="1575341370057">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="204" key="GridCell.Tab.1.left/0.0.1280.680@0.0.1280.680" timestamp="1575341370057" />
+    <state width="1237" height="204" key="GridCell.Tab.1.right" timestamp="1575341370057">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state width="1237" height="204" key="GridCell.Tab.1.right/0.0.1280.680@0.0.1280.680" timestamp="1575341370057" />
+    <state x="121" y="0" key="SettingsEditor" timestamp="1577504193970">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="121" y="0" key="SettingsEditor/0.0.1280.680@0.0.1280.680" timestamp="1577504193970" />
+    <state x="325" y="167" key="com.intellij.ide.util.TipDialog" timestamp="1578046121421">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="325" y="167" key="com.intellij.ide.util.TipDialog/0.0.1280.680@0.0.1280.680" timestamp="1578046121421" />
+    <state x="371" y="107" key="extract.method.dialog" timestamp="1580809081068">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="371" y="107" key="extract.method.dialog/0.0.1280.680@0.0.1280.680" timestamp="1580809081068" />
+    <state x="295" y="195" width="673" height="289" key="org.intellij.images.editor.actions.BackgroundImageDialog" timestamp="1577504191809">
+      <screen x="0" y="0" width="1280" height="680" />
+    </state>
+    <state x="295" y="195" width="673" height="289" key="org.intellij.images.editor.actions.BackgroundImageDialog/0.0.1280.680@0.0.1280.680" timestamp="1577504191809" />
   </component>
 </project>

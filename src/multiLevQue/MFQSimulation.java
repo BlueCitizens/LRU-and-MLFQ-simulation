@@ -1,9 +1,7 @@
 package multiLevQue;
 
-
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.plaf.FontUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +11,7 @@ import java.util.*;
 
 
 public class MFQSimulation {
-    private static JFrame frame = new JFrame("进程存储管理");
+    private static JFrame frame = new JFrame("进程&页面管理课程设计");
     private static Container container = frame.getContentPane();
     ;
 
@@ -39,7 +37,9 @@ public class MFQSimulation {
     private static JButton stopButton = new JButton("暂停");
     private static JButton contButton = new JButton("继续");
 
-    //设置优先级最高(即49)的队列的时间片大小默认值
+    private static JLabel timeLbl = new JLabel();
+
+    //设置优先级最高的队列的时间片大小默认值
     public static int timeSlice = 2;
     //队列数量
     public static final int queueSize = 5;
@@ -50,13 +50,14 @@ public class MFQSimulation {
     //物理块大小
     public static final int stackSize = 10;
 
-    public static int PCBsQueuesTimeSlice[] = new int[queueSize];
+    public static int[] PCBsQueuesTimeSlice = new int[queueSize];
 
     //所有页面
-    public static Page pages[] = new Page[pageListSize];
+    public static Page[] pages = new Page[pageListSize];
 
     //多级反馈队列
     public static PCBsQueue[] PCBsQueues = new PCBsQueue[queueSize];
+    public static LinkedList<PCB> tmpQueue = new LinkedList<PCB>();
 
     //记录已经使用的pid
     public static int[] pidsUsed = new int[memorySize];
@@ -70,8 +71,9 @@ public class MFQSimulation {
     //内存中能够容纳的最大进程数（这里取决于可分配的pid的个数）
     public static final int PCBS_MAX_NUM = 10;
 
-    //是否停止调度
+    //是否停止执行
     public static boolean isStopScheduling;
+    //是否暂停执行
     public static boolean isPauseScheduling;
 
     //main函数
@@ -112,18 +114,21 @@ public class MFQSimulation {
         mpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         frame.setContentPane(container);
-        mpanel.setBounds(0, 0, 1180, 150);
-        scrollPane.setBounds(0, 170, 1180, 450);
-        stopButton.setBounds(20, 152, 40, 15);
+        mpanel.setBounds(0, 0, 1260, 150);
+        scrollPane.setBounds(0, 180, 1260, 440);
+        stopButton.setBounds(20, 152, 50, 25);
         stopButton.setBorder(BorderFactory.createEtchedBorder());
-        contButton.setBounds(100, 152, 40, 15);
+        contButton.setBounds(100, 152, 50, 25);
         contButton.setBorder(BorderFactory.createEtchedBorder());
+        timeLbl.setBounds(500, 152, 200, 25);
+        timeLbl.setFont(new Font("微软雅黑", Font.BOLD, 16));
         container.add(mpanel);
         container.add(scrollPane);
         container.add(stopButton);
         container.add(contButton);
+        container.add(timeLbl);
         container.setLayout(null);
-        frame.setSize(1200, 700);
+        frame.setSize(1280, 700);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
 
@@ -139,14 +144,13 @@ public class MFQSimulation {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
-
     }
 
     //初始化相关内存参数
     public static void initMemory() {
         currentPCBsNum = 0;
         currentTime = 0;
-        timeSlice = 2;
+        /*timeSlice = 2;*/
 
         Arrays.fill(pidsUsed, 1, 11, 0);
 
@@ -160,6 +164,7 @@ public class MFQSimulation {
             PCBsQueuesTimeSlice[i] = timeSlice;
             timeSlice = firstSlice * 2;
         }
+        timeLbl.setText("就绪。。。");
     }
 
     //给窗口中所有控件绑定监听器
@@ -247,7 +252,7 @@ public class MFQSimulation {
         } else {
             String inputArv = JOptionPane.showInputDialog(frame, "输入到达时间：", 0);
             int arvInput = Integer.parseInt(inputArv);
-            while (arvInput < 0) {
+            while (arvInput < currentTime) {
                 JOptionPane.showMessageDialog(frame, "非法输入！");
                 inputArv = JOptionPane.showInputDialog(frame, "输入到达时间：", 0);
                 arvInput = Integer.parseInt(inputArv);
@@ -274,7 +279,8 @@ public class MFQSimulation {
 
             PCB pcb = new PCB(randomPid, "Ready", curPriority, srvInput, arvInput);
 
-            LinkedList<PCB> queue = PCBsQueues[PCBsQueues.length - 1].getQueue();
+            //LinkedList<PCB> queue = PCBsQueues[PCBsQueues.length - 1].getQueue();
+            LinkedList<PCB> queue = tmpQueue;
             boolean insertFlag = false;
             for (PCB e : queue) {
                 if (pcb.getArrival() < e.getArrival()) {
@@ -298,13 +304,10 @@ public class MFQSimulation {
                 }
             }
             if (!insertFlag) {
-
                 queue.addLast(pcb);
-
             }
-
-            PCBsQueues[curPriority].setQueue(queue);
-
+            /*PCBsQueues[curPriority].setQueue(queue);*/
+            tmpQueue = queue;
             showPCBQueues(PCBsQueues);
         }
     }
@@ -314,16 +317,29 @@ public class MFQSimulation {
         isStopScheduling = false;
         isPauseScheduling = false;
 
-        //更新界面操作多线程实现
+        //更新界面使用多线程实现
         new Thread(new Runnable() {
             @Override
             public void run() {
                 //当前内存中还留有进程未执行
                 while (currentPCBsNum != 0 && !isStopScheduling) {
+                    boolean isEmptyFlag = false;
+                    if (!tmpQueue.isEmpty() && tmpQueue.getFirst().getArrival() == currentTime) {
+                        for (int i = 0; i < tmpQueue.size(); i++) {
+                            if (tmpQueue.get(i).getArrival() == currentTime) {
+                                PCB newPcb = tmpQueue.getFirst();
+                                PCBsQueues[PCBsQueues.length - 1].getQueue().offer(newPcb);
+                                tmpQueue.remove(i);
+                                i--;
+                            }
+                        }
+                    }
+
                     for (int i = PCBsQueues.length - 1; i >= 0; i--) {
                         LinkedList<PCB> queue = PCBsQueues[i].getQueue();
 
                         if (queue.size() > 0) {
+                            isEmptyFlag = true;
                             //读取该队列首个PCB
                             PCB pcb = queue.element();
                             pcb.setStatus("Running");
@@ -333,9 +349,9 @@ public class MFQSimulation {
                             int curTimeSlice = PCBsQueuesTimeSlice[i];
                             ArrayList<Integer> arr = pcb.getPageMap();
                             while (curTimeSlice > 0) {
-                                while (isPauseScheduling){
+                                while (isPauseScheduling) {
                                     try {
-                                        Thread.sleep((int)(1000));
+                                        Thread.sleep((int) (1000));
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
                                     }
@@ -346,15 +362,29 @@ public class MFQSimulation {
                                     showBlock(pcb);
                                 }
 
-
                                 //修改pcb属性
                                 life = life - 1;
                                 curTimeSlice--;
+                                timeLbl.setText("已执行时间： " + currentTime);
                                 currentTime++;
+                                //
+                                if (!tmpQueue.isEmpty() && tmpQueue.getFirst().getArrival() == currentTime) {
+                                       /* PCB newPcb = tmpQueue.getFirst();
+                                        PCBsQueues[PCBsQueues.length - 1].getQueue().offer(newPcb);
+                                        tmpQueue.remove(0);*/
+                                    for (int j = 0; j < tmpQueue.size(); j++) {
+                                        if (tmpQueue.get(j).getArrival() == currentTime) {
+                                            PCB newPcb = tmpQueue.getFirst();
+                                            PCBsQueues[PCBsQueues.length - 1].getQueue().offer(newPcb);
+                                            tmpQueue.remove(j);
+                                            j--;
+                                        }
+                                    }
+                                }
                                 pcb.setLife(life);
                                 pcb.setAlive(pcb.getAlive() + 1);
                                 runLru(pcb);
-                                //通过延时一个时间片来模拟该进程的执行
+                                //延时模拟执行过程，方便观察
                                 try {
                                     Thread.sleep((int) (2500));
                                 } catch (InterruptedException e) {
@@ -383,12 +413,14 @@ public class MFQSimulation {
                                 nextQueue.offer(pcb);
                                 PCBsQueues[priority].setQueue(nextQueue);
                             }
-
                             break;
                         }
                     }
+                    if (!isEmptyFlag) {
+                        currentTime++;
+                    }
                 }
-
+                //初始化
                 initMemory();
                 showBlock(null);
                 showPCBQueues(PCBsQueues);
@@ -420,20 +452,21 @@ public class MFQSimulation {
         int timeSliceInput = Integer.parseInt(inputMsg);
 
         while (timeSliceInput <= 0) {
-            JOptionPane.showMessageDialog(frame, "illegal");
-            inputMsg = JOptionPane.showInputDialog(frame, "Please input your time slice(seconds)：", "Set Time Slice", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(frame, "非法");
+            inputMsg = JOptionPane.showInputDialog(frame, "输入时间片大小(seconds)：", "Set Time Slice", JOptionPane.PLAIN_MESSAGE);
             timeSliceInput = Integer.parseInt(inputMsg);
         }
 
         timeSlice = timeSliceInput;
+        initMemory();
     }
 
-    public static PCB runOnce(PCB pcb) {
+    /*public static PCB runOnce(PCB pcb) {
         ArrayList<Integer> arr = pcb.getPageMap();
         LinkedList<Page> pageBlock = pcb.getPageBlock();
         int pageId = arr.get(0);
 
-        /*ListIterator<Page> listIterator = pageBlock.listIterator();
+        *//*ListIterator<Page> listIterator = pageBlock.listIterator();
 
         while (listIterator.hasNext()) {
 
@@ -442,9 +475,9 @@ public class MFQSimulation {
                 pcb.setPageMap(arr);
                 return pcb;
             }
-        }*/
-        for(Page page : pageBlock){
-            if(page.getNum() == pageId){
+        }*//*
+        for (Page page : pageBlock) {
+            if (page.getNum() == pageId) {
                 arr.remove(0);
                 pcb.setPageMap(arr);
                 return pcb;
@@ -452,14 +485,14 @@ public class MFQSimulation {
         }
         Page p = new Page(pageId);
         pageBlock.add(0, p);
-        if(pageBlock.size() > 5){
+        if (pageBlock.size() > 5) {
             pageBlock.remove(5);
         }
         arr.remove(0);
         pcb.setPageMap(arr);
         pcb.setPageBlock(pageBlock);
         return pcb;
-    }
+    }*/
 
     //LRU
     public static PCB runLru(PCB pcb) {
@@ -467,8 +500,7 @@ public class MFQSimulation {
         LinkedList<Page> pageBlock = pcb.getPageBlock();
         LinkedList<Page> pageStack = pcb.getLruSerial();
         int pageId = arr.get(0);
-
-        for(int i = 0; i < pageStack.size();i++) {
+        for (int i = 0; i < pageStack.size(); i++) {
             if (pageStack.get(i).getNum() == pageId) {
                 Page newPage = new Page();
                 newPage.setNum(pageId);
@@ -480,56 +512,26 @@ public class MFQSimulation {
                 return pcb;
             }
         }
-        /*ListIterator<Page> listIterator = pageStack.listIterator();
-
-        while (listIterator.hasNext()) {
-
-            if(listIterator.next().getNum() == pageId){
-                Page p = new Page(pageId);
-                pageStack.add(p);
-                listIterator.remove();
-                arr.remove(0);
-                pcb.setPageMap(arr);
-                pcb.setLruSerial(pageStack);
-                return pcb;
-            }
-        }*/
-        /*for (Page page : pageStack) {
-            if(page.getNum() == pageId){
-                Page newPage = new Page();
-                newPage.setNum(page.getNum());
-                pageStack.add(0,newPage);
-                int i = pageStack.indexOf(page);
-                pageStack.remove(i);
-
-                arr.remove(0);
-                pcb.setPageMap(arr);
-                pcb.setLruSerial(pageStack);
-                return pcb;
-            }
-        }*/
         Page p = new Page(pageId);
         pageStack.add(0, p);
-        if(pageStack.size() > 5){
-            for (int j = 0; j < pageBlock.size();j++) {
-                if(pageBlock.get(j).getNum() == pageStack.getLast().getNum()){
-                    pageBlock.set(j,p);
+        if (pageStack.size() > 5) {
+            for (int j = 0; j < pageBlock.size(); j++) {
+                if (pageBlock.get(j).getNum() == pageStack.getLast().getNum()) {
+                    pageBlock.set(j, p);
                     break;
                 }
             }
             pageStack.remove(5);
-        }else{
-            pageBlock.add(0,p);
+        } else {
+            pageBlock.add(0, p);
         }
         arr.remove(0);
         pcb.setPageMap(arr);
         pcb.setLruSerial(pageStack);
         pcb.setPageBlock(pageBlock);
         return pcb;
-
     }
-    
-    
+
     //显示物理块状态
     public static void showBlock(PCB pcb) {
         if (pcb != null) {
@@ -564,9 +566,6 @@ public class MFQSimulation {
 
                 for (Integer entry : pageMap) {
 
-                    //JLabel默认情况下是透明的所以直接设置背景颜色是无法显示的，必须将其设置为不透明才能显示背景
-
-                    //设置pid标签
                     JLabel keyLabel = new JLabel(" 页号: " + String.valueOf(entry));
                     keyLabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
                     keyLabel.setOpaque(true);
@@ -574,8 +573,6 @@ public class MFQSimulation {
                     keyLabel.setForeground(Color.ORANGE);
                     keyLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-
-                    //绘制一个PCB
                     JPanel PCBPanel = new JPanel();
                     PCBPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                     PCBPanel.setBackground(Color.LIGHT_GRAY);
@@ -590,8 +587,6 @@ public class MFQSimulation {
                         PCBPanel.add(stLabel);
                     }
 
-
-                    //将PCB加入队列
                     pageQue.add(new DrawLinePanel());
                     pageQue.add(PCBPanel);
                 }
@@ -600,7 +595,6 @@ public class MFQSimulation {
             }
             //物理块状态
             if (blockQue.size() > 0) {
-                //创建一个PCB队列
                 JPanel PCBsQueue = new JPanel();
                 // PCBsQueue.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 PCBsQueue.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -608,7 +602,6 @@ public class MFQSimulation {
 
                 queueLocationY += 50;
 
-                //创建队列前面的优先级提示块
                 JLabel PCBsQueuePriorityLabel = new JLabel("进程号 " + pcb.getPid() + " 物理块状态 ");
                 PCBsQueuePriorityLabel.setFont(new Font("微软雅黑", Font.BOLD, 16));
                 PCBsQueuePriorityLabel.setOpaque(true);
@@ -622,14 +615,11 @@ public class MFQSimulation {
 
                 for (Page page : blockQue) {
 
-                    //JLabel默认情况下是透明的所以直接设置背景颜色是无法显示的，必须将其设置为不透明才能显示背景
-
-                    //设置pid标签
-                    JLabel pidLabel = new JLabel("   "+String.valueOf(page.getNum())+"   ");
+                    JLabel pidLabel = new JLabel("   " + String.valueOf(page.getNum()) + "   ");
                     pidLabel.setOpaque(true);
                     pidLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
                     pidLabel.setBackground(Color.DARK_GRAY);
-                    pidLabel.setForeground(Color.MAGENTA);
+                    pidLabel.setForeground(Color.cyan);
                     pidLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
                     //绘制一个PCB
@@ -647,7 +637,6 @@ public class MFQSimulation {
             }
             //LRU算法栈
             if (pageStack.size() > 0) {
-                //创建一个PCB队列
                 JPanel stackQue = new JPanel();
                 // stackQue.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 stackQue.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -655,7 +644,6 @@ public class MFQSimulation {
 
                 queueLocationY += 50;
 
-                //创建队列前面的优先级提示块
                 JLabel pageQuePriorityLabel = new JLabel("进程号 " + pcb.getPid() + "     LRU      ");
                 pageQuePriorityLabel.setFont(new Font("微软雅黑", Font.BOLD, 16));
                 pageQuePriorityLabel.setOpaque(true);
@@ -669,10 +657,7 @@ public class MFQSimulation {
 
                 for (Page page : pageStack) {
 
-                    //JLabel默认情况下是透明的所以直接设置背景颜色是无法显示的，必须将其设置为不透明才能显示背景
-
-                    //设置pid标签
-                    JLabel pidLabel = new JLabel("   "+String.valueOf(page.getNum())+"   ");
+                    JLabel pidLabel = new JLabel("   " + String.valueOf(page.getNum()) + "   ");
                     pidLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
                     pidLabel.setOpaque(true);
                     pidLabel.setBackground(Color.DARK_GRAY);
@@ -718,6 +703,103 @@ public class MFQSimulation {
         int queueLocationY = 0;
         JPanel queuesPanel = new JPanel();
 
+        if (tmpQueue.size() > 0) {
+            //创建一个PCB队列
+            JPanel PCBsQueue = new JPanel();
+            // PCBsQueue.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+            PCBsQueue.setLayout(new FlowLayout(FlowLayout.LEFT));
+            PCBsQueue.setBounds(0, queueLocationY, 800, 700);
+
+            queueLocationY += 50;
+
+            //创建队列前面的优先级提示块
+            JLabel PCBsQueuePriorityLabel = new JLabel("即将到达");
+            PCBsQueuePriorityLabel.setFont(new Font("微软雅黑", Font.BOLD, 18));
+            PCBsQueuePriorityLabel.setOpaque(true);
+            Border border = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
+            PCBsQueuePriorityLabel.setBorder(border);
+
+            JPanel PCBsQueuePriorityBlock = new JPanel();
+            PCBsQueuePriorityBlock.add(PCBsQueuePriorityLabel);
+
+            PCBsQueue.add(PCBsQueuePriorityBlock);
+
+            for (PCB pcb : tmpQueue) {
+
+                JLabel pidLabel = new JLabel(" 进程号: " + String.valueOf(pcb.getPid()));
+                pidLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
+                pidLabel.setOpaque(true);
+                pidLabel.setBackground(Color.DARK_GRAY);
+                pidLabel.setForeground(Color.ORANGE);
+                pidLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+                //设置status标签
+                JLabel statusLabel = new JLabel(" 状态: " + pcb.getStatus());
+                statusLabel.setFont(new Font("微软雅黑", Font.BOLD, 13));
+                statusLabel.setOpaque(true);
+                statusLabel.setBackground(Color.DARK_GRAY);
+                statusLabel.setForeground(Color.ORANGE);
+                statusLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+                //设置priority标签
+                    /*JLabel priorityLabel = new JLabel(" Priority: " + String.valueOf(pcb.getPriority()));
+                    priorityLabel.setOpaque(true);
+                    priorityLabel.setBackground(Color.DARK_GRAY);
+                    priorityLabel.setForeground(Color.ORANGE);
+                    priorityLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));*/
+
+                //设置life标签
+                JLabel lifeLabel = new JLabel(" 剩余时间: " + String.valueOf(pcb.getLife()));
+                lifeLabel.setFont(new Font("微软雅黑", Font.BOLD, 13));
+                lifeLabel.setOpaque(true);
+                lifeLabel.setBackground(Color.DARK_GRAY);
+                lifeLabel.setForeground(Color.ORANGE);
+                lifeLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+                //设置life标签
+                JLabel aliveLabel = new JLabel(" 活动时间: " + String.valueOf(pcb.getAlive()));
+                aliveLabel.setFont(new Font("微软雅黑", Font.BOLD, 13));
+                aliveLabel.setOpaque(true);
+                aliveLabel.setBackground(Color.DARK_GRAY);
+                aliveLabel.setForeground(Color.ORANGE);
+                aliveLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+                //设置arrival标签
+                JLabel arrivalLabel = new JLabel(" 到达时间: " + String.valueOf(pcb.getArrival()));
+                arrivalLabel.setFont(new Font("微软雅黑", Font.BOLD, 13));
+                arrivalLabel.setOpaque(true);
+                arrivalLabel.setBackground(Color.DARK_GRAY);
+                arrivalLabel.setForeground(Color.ORANGE);
+                arrivalLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+                JLabel pageLabel = new JLabel(" 剩余页数: " + String.valueOf(pcb.getPageMap().size()));
+                pageLabel.setFont(new Font("微软雅黑", Font.BOLD, 13));
+                pageLabel.setOpaque(true);
+                pageLabel.setBackground(Color.DARK_GRAY);
+                pageLabel.setForeground(Color.ORANGE);
+                pageLabel.setBorder(BorderFactory.createLineBorder(Color.LIGHT_GRAY));
+
+                //绘制一个PCB
+                JPanel PCBPanel = new JPanel();
+                PCBPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                PCBPanel.setLayout(new GridLayout(2, 3));
+                PCBPanel.setBackground(Color.LIGHT_GRAY);
+                PCBPanel.add(pidLabel);
+                PCBPanel.add(arrivalLabel);
+                PCBPanel.add(pageLabel);
+                PCBPanel.add(statusLabel);
+                //PCBPanel.add(priorityLabel);
+                PCBPanel.add(aliveLabel);
+                PCBPanel.add(lifeLabel);
+
+                //将PCB加入队列
+                PCBsQueue.add(new DrawLinePanel());
+                PCBsQueue.add(PCBPanel);
+            }
+
+            queuesPanel.add(PCBsQueue);
+        }
+
         for (int i = PCBsQueues.length - 1; i >= 0; i--) {
             LinkedList<PCB> queue = PCBsQueues[i].getQueue();
 
@@ -744,9 +826,6 @@ public class MFQSimulation {
 
                 for (PCB pcb : queue) {
 
-                    //JLabel默认情况下是透明的所以直接设置背景颜色是无法显示的，必须将其设置为不透明才能显示背景
-
-                    //设置pid标签
                     JLabel pidLabel = new JLabel(" 进程号: " + String.valueOf(pcb.getPid()));
                     pidLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
                     pidLabel.setOpaque(true);
@@ -804,7 +883,7 @@ public class MFQSimulation {
                     //绘制一个PCB
                     JPanel PCBPanel = new JPanel();
                     PCBPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    PCBPanel.setLayout(new GridLayout(2,3));
+                    PCBPanel.setLayout(new GridLayout(2, 3));
                     PCBPanel.setBackground(Color.LIGHT_GRAY);
                     PCBPanel.add(pidLabel);
                     PCBPanel.add(arrivalLabel);

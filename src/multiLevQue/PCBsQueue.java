@@ -1,12 +1,5 @@
 package multiLevQue;
 
-/*
- * @program: MFQ
- * @description: PCBsQueue
- * @author: WuchangI
- * @create: 2018-05-23-13-49
- **/
-
 import java.util.LinkedList;
 
 //控制块队列类
