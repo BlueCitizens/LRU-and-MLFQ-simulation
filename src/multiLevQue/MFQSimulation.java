@@ -2,6 +2,8 @@ package multiLevQue;
 
 import javax.swing.*;
 import javax.swing.border.Border;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,8 +18,12 @@ public class MFQSimulation {
     ;
 
     private static JPanel mpanel = new JPanel();
+    private static JScrollPane scrollPane0 = new JScrollPane(mpanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     private static JPanel panel = new JPanel();
-    private static JScrollPane scrollPane = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+    private static JScrollPane scrollPane = new JScrollPane(panel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+    //页表窗格
+    private static JPanel pageTablePanel = new JPanel();
+    private static JScrollPane scrollPane2 = new JScrollPane(pageTablePanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
     //菜单组件
     private static JMenuBar menuBar = new JMenuBar();
@@ -112,18 +118,21 @@ public class MFQSimulation {
 
         panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         mpanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        pageTablePanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         frame.setContentPane(container);
-        mpanel.setBounds(0, 0, 1260, 150);
-        scrollPane.setBounds(0, 180, 1260, 440);
+        scrollPane0.setBounds(0, 0, 960, 150);
+        scrollPane.setBounds(0, 180, 960, 440);
+        scrollPane2.setBounds(970, 0, 280, 620);
         stopButton.setBounds(20, 152, 50, 25);
         stopButton.setBorder(BorderFactory.createEtchedBorder());
         contButton.setBounds(100, 152, 50, 25);
         contButton.setBorder(BorderFactory.createEtchedBorder());
         timeLbl.setBounds(500, 152, 200, 25);
         timeLbl.setFont(new Font("微软雅黑", Font.BOLD, 16));
-        container.add(mpanel);
+        container.add(scrollPane0);
         container.add(scrollPane);
+        container.add(scrollPane2);
         container.add(stopButton);
         container.add(contButton);
         container.add(timeLbl);
@@ -538,10 +547,12 @@ public class MFQSimulation {
 
             int queueLocationY = 0;
             JPanel queuesPanel = new JPanel();
+            JPanel pageTabPanel = new JPanel();
 
-            LinkedList<Page> blockQue = pcb.getPageBlock();
-            LinkedList<Page> pageStack = pcb.getLruSerial();
-            ArrayList<Integer> pageMap = pcb.getPageMap();
+            LinkedList<Page> blockQue = pcb.getPageBlock();//物理块状态
+            LinkedList<Page> pageStack = pcb.getLruSerial();//LRU栈状态
+            ArrayList<Integer> pageMap = pcb.getPageMap();//剩余页
+
             //访问序列
             if (pageMap.size() > 0) {
                 //创建一个PCB队列
@@ -553,7 +564,7 @@ public class MFQSimulation {
                 queueLocationY += 50;
 
                 //创建队列前面的优先级提示块
-                JLabel pageQuePriorityLabel = new JLabel("进程号 " + pcb.getPid() + " 请求页面序列 ");
+                JLabel pageQuePriorityLabel = new JLabel("进程号 " + pcb.getPid() + " 访问序列 ");
                 pageQuePriorityLabel.setFont(new Font("微软雅黑", Font.BOLD, 16));
                 pageQuePriorityLabel.setOpaque(true);
                 Border border = BorderFactory.createLineBorder(Color.BLACK);
@@ -564,6 +575,7 @@ public class MFQSimulation {
 
                 pageQue.add(pageQuePriorityBlock);
 
+                int i = 0;
                 for (Integer entry : pageMap) {
 
                     JLabel keyLabel = new JLabel(" 页号: " + String.valueOf(entry));
@@ -577,7 +589,7 @@ public class MFQSimulation {
                     PCBPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                     PCBPanel.setBackground(Color.LIGHT_GRAY);
                     PCBPanel.add(keyLabel);
-                    if (entry == pageMap.get(0)) {
+                    if (entry == pageMap.get(0) && i == 0) {
                         JLabel stLabel = new JLabel("waiting");
                         stLabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
                         stLabel.setOpaque(true);
@@ -586,7 +598,7 @@ public class MFQSimulation {
                         stLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                         PCBPanel.add(stLabel);
                     }
-
+                    i++;
                     pageQue.add(new DrawLinePanel());
                     pageQue.add(PCBPanel);
                 }
@@ -613,6 +625,7 @@ public class MFQSimulation {
 
                 PCBsQueue.add(PCBsQueuePriorityBlock);
 
+                int i = blockQue.size() - 1;
                 for (Page page : blockQue) {
 
                     JLabel pidLabel = new JLabel("   " + String.valueOf(page.getNum()) + "   ");
@@ -622,15 +635,24 @@ public class MFQSimulation {
                     pidLabel.setForeground(Color.cyan);
                     pidLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
+                    JLabel blockLabel = new JLabel("   块号：" + i + "   ");
+                    blockLabel.setOpaque(true);
+                    blockLabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
+                    blockLabel.setBackground(Color.lightGray);
+                    blockLabel.setForeground(Color.black);
+                    blockLabel.setBorder(BorderFactory.createLineBorder(Color.lightGray));
+
                     //绘制一个PCB
                     JPanel PCBPanel = new JPanel();
                     PCBPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                     PCBPanel.setBackground(Color.LIGHT_GRAY);
                     PCBPanel.add(pidLabel);
+                    PCBPanel.add(blockLabel);
 
                     //将PCB加入队列
                     PCBsQueue.add(new DrawLinePanel());
                     PCBsQueue.add(PCBPanel);
+                    i--;
                 }
 
                 queuesPanel.add(PCBsQueue);
@@ -644,7 +666,7 @@ public class MFQSimulation {
 
                 queueLocationY += 50;
 
-                JLabel pageQuePriorityLabel = new JLabel("进程号 " + pcb.getPid() + "     LRU      ");
+                JLabel pageQuePriorityLabel = new JLabel("进程号 " + pcb.getPid() + "     LRU栈    ");
                 pageQuePriorityLabel.setFont(new Font("微软雅黑", Font.BOLD, 16));
                 pageQuePriorityLabel.setOpaque(true);
                 Border border = BorderFactory.createLineBorder(Color.BLACK);
@@ -655,7 +677,25 @@ public class MFQSimulation {
 
                 stackQue.add(pageQuePriorityBlock);
 
+                int i = 0;
                 for (Page page : pageStack) {
+                    if (i == 0) {
+                        JLabel topLabel = new JLabel("   " + "栈顶" + "   ");
+                        topLabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
+                        topLabel.setOpaque(true);
+                        topLabel.setBackground(Color.lightGray);
+                        topLabel.setForeground(Color.black);
+                        topLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+                        //绘制一个PCB
+                        JPanel topPanel = new JPanel();
+                        topPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//                        topPanel.setBackground(Color.LIGHT_GRAY);
+                        topPanel.add(topLabel);
+                        //将PCB加入队列
+                        stackQue.add(new DrawLinePanel());
+                        stackQue.add(topPanel);
+                    }
 
                     JLabel pidLabel = new JLabel("   " + String.valueOf(page.getNum()) + "   ");
                     pidLabel.setFont(new Font("微软雅黑", Font.BOLD, 15));
@@ -673,11 +713,73 @@ public class MFQSimulation {
                     //将PCB加入队列
                     stackQue.add(new DrawLinePanel());
                     stackQue.add(PCBPanel);
+
+                    if (i == (pageStack.size() - 1)) {
+                        JLabel bottomLabel = new JLabel("   " + "栈底" + "   ");
+                        bottomLabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
+                        bottomLabel.setOpaque(true);
+                        bottomLabel.setBackground(Color.lightGray);
+                        bottomLabel.setForeground(Color.black);
+                        bottomLabel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+
+                        //绘制一个PCB
+                        JPanel signPanel = new JPanel();
+                        signPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+//                        signPanel.setBackground(Color.LIGHT_GRAY);
+                        signPanel.add(bottomLabel);
+
+                        //将PCB加入队列
+                        stackQue.add(new DrawLinePanel());
+                        stackQue.add(signPanel);
+                    }
+                    i++;
                 }
 
                 queuesPanel.add(stackQue);
             }
 
+
+            /*创建页表*/
+
+
+            // 表头（列名）
+            Object[] columnNames = {"页号", "块号", "标志位"};
+            // 创建表格模型
+            Object[][] rowData = new Object[10][columnNames.length];
+            for (int i = 0; i < 10; i++) {
+                rowData[i][0] = i;
+                rowData[i][2] = 0;
+            }
+            int j = blockQue.size() - 1;
+            for (Page block : blockQue) {
+                System.out.println(block.getNum());
+                rowData[block.getNum()][1] = j;
+                rowData[block.getNum()][2] = 1;
+                j--;
+            }
+            DefaultTableModel dataModel = new DefaultTableModel(rowData, columnNames);
+            // 创建JTable表格组件
+            JTable table = new JTable();
+            table.setModel(dataModel);
+
+            table.setRowHeight(55);
+            // 设置表头文字居中显示
+            DefaultTableCellRenderer renderer = (DefaultTableCellRenderer) table.getTableHeader().getDefaultRenderer();
+            renderer.setHorizontalAlignment(renderer.CENTER);
+
+            // 设置表格中的数据居中显示
+            DefaultTableCellRenderer r = new DefaultTableCellRenderer();
+            r.setHorizontalAlignment(JLabel.CENTER);
+            table.setDefaultRenderer(Object.class, r);
+
+            table.setFocusable(false);
+
+            table.setFont(new Font("新宋体", Font.PLAIN, 18));
+
+            JScrollPane scrollPane = new JScrollPane(table);
+            scrollPane.setPreferredSize(new Dimension(240, 590));
+//            pageTabPanel.add(table.getTableHeader(), BorderLayout.EAST);
+            pageTabPanel.add(scrollPane, BorderLayout.NORTH);
 
             //设置queuesPanel中的所有PCB队列（PCBsQueue组件）按垂直方向排列
             BoxLayout boxLayout = new BoxLayout(queuesPanel, BoxLayout.Y_AXIS);
@@ -690,11 +792,20 @@ public class MFQSimulation {
             mpanel.add(queuesPanel);
             mpanel.updateUI();
             mpanel.repaint();
+            pageTablePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+            pageTablePanel.removeAll();
+            pageTablePanel.add(pageTabPanel);
+            pageTablePanel.updateUI();
+            pageTablePanel.repaint();
         } else {
             mpanel.setLayout(new FlowLayout(FlowLayout.LEFT));
             mpanel.removeAll();
             mpanel.updateUI();
             mpanel.repaint();
+            pageTablePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+            pageTablePanel.removeAll();
+            pageTablePanel.updateUI();
+            pageTablePanel.repaint();
         }
     }
 
