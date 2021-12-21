@@ -23,4 +23,4 @@
 ![screenshot](https://github.com/BlueCitizens/LRU-and-MLFQ-simulation/blob/master/screenshot.gif)
   
 ## 致谢
-受(https://github.com/Yuziquan/MultilevelFeedbackQueueSimulation)启发，感谢开源力量。
+受到该repo[MultilevelFeedbackQueueSimulation](https://github.com/Yuziquan/MultilevelFeedbackQueueSimulation)的启发，感谢开源力量。
