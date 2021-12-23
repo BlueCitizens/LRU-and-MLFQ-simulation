@@ -7,18 +7,6 @@
     <list default="true" id="0b7bec45-c133-4b50-8613-503a501f9265" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/artifacts/OS_jar/OS.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/OS_jar/OS.jar" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/DrawLinePanel.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/DrawLinePanel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/OS/multiLevQue/MFQSimulation.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/multiLevQue/MFQSimulation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/multiLevQue/MFQSimulation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -189,7 +177,8 @@
       <workItem from="1578046100846" duration="26000" />
       <workItem from="1578128887287" duration="633000" />
       <workItem from="1580808843592" duration="1140000" />
-      <workItem from="1639985277046" duration="21783000" />
+      <workItem from="1639985277046" duration="23042000" />
+      <workItem from="1640268520196" duration="177000" />
     </task>
     <servers />
   </component>
