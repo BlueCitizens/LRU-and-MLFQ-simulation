@@ -666,7 +666,7 @@ public class MFQSimulation {
 
                 queueLocationY += 50;
 
-                JLabel pageQuePriorityLabel = new JLabel("进程号 " + pcb.getPid() + "     LRU栈    ");
+                JLabel pageQuePriorityLabel = new JLabel("进程号 " + pcb.getPid() + "     LRU队列    ");
                 pageQuePriorityLabel.setFont(new Font("微软雅黑", Font.BOLD, 16));
                 pageQuePriorityLabel.setOpaque(true);
                 Border border = BorderFactory.createLineBorder(Color.BLACK);
@@ -680,7 +680,7 @@ public class MFQSimulation {
                 int i = 0;
                 for (Page page : pageStack) {
                     if (i == 0) {
-                        JLabel topLabel = new JLabel("   " + "栈顶" + "   ");
+                        JLabel topLabel = new JLabel("   " + "队尾" + "   ");
                         topLabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
                         topLabel.setOpaque(true);
                         topLabel.setBackground(Color.lightGray);
@@ -715,7 +715,7 @@ public class MFQSimulation {
                     stackQue.add(PCBPanel);
 
                     if (i == (pageStack.size() - 1)) {
-                        JLabel bottomLabel = new JLabel("   " + "栈底" + "   ");
+                        JLabel bottomLabel = new JLabel("   " + "队首" + "   ");
                         bottomLabel.setFont(new Font("微软雅黑", Font.BOLD, 12));
                         bottomLabel.setOpaque(true);
                         bottomLabel.setBackground(Color.lightGray);
